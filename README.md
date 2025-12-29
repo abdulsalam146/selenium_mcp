@@ -155,13 +155,11 @@ Important: Do not store secrets in plaintext in the repository. Use OS environme
 - Start the MCP server:
   python selenium_mcp.py
 
+- user task is defined in prompts.py. Explain your scenario there before running the agent
+
 - Start the Agent:
   python agent.py 
 
-- Submit scenarios to the Agent via the CLI or the Agent's interface (see examples/ or scripts in the repo).
-
-Example (run a scenario from CLI via the agent):
-python -m selenium_mcp.cli run-scenario --file tests/scenarios/login_and_add_product.txt
 
 The Agent will:
 - request a DOM snapshot from the MCP server,
