@@ -16,7 +16,7 @@ from prompts import SYSTEM_PROMPT, USER_TASK
 # 1. Configuration
 load_dotenv()
 
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3-coder:480b-cloud") 
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud") 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
 llm = ChatOllama(
