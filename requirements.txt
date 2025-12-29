@@ -1,0 +1,8 @@
+mcp
+fastmcp
+selenium
+langchain-groq
+langgraph
+langchain-mcp-adapters
+python-dotenv
+langchain-ollama
