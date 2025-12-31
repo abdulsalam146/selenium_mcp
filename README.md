@@ -45,7 +45,6 @@ Because the framework inspects and interprets the page at runtime, test authors 
 - Runtime DOM parsing to find actionable elements without prior page knowledge.
 - LangChain / LangGraph orchestration with an Ollama model by default (pluggable for other providers).
 - Configurable browser backends (local Chrome/Firefox, remote Selenium Grid, BrowserStack/Sauce Labs).
-- Screenshots and HTML capture on failure.
 - Simple, reusable "selenium mcp" library/API for embedding in other tools.
 - Experimental: not optimized for token efficiency — current focus is capability and clarity.
 
@@ -118,13 +117,11 @@ Start the components in separate terminals:
    - write artifacts to reports/ by default.
 
 2. Start the Agent:
-   python agent.py --provider ollama --model <model-name>
-
-   Replace <model-name> with the Ollama model name you installed (e.g., a llama2 or other model name supported by your Ollama instance).
-
+   python agent.py 
+  
 Notes:
 - The Agent assumes the MCP server is running locally; the included agent connects to the local server by default — no URL parameter is required for the standard setup.
-- If you customize host/port, update the Agent configuration accordingly.
+- If you customize host/port, update the Agent accordingly.
 
 ## Writing natural-language scenarios
 Create a plain-text or YAML scenario describing the user intent. The framework understands common verbs and UI intents like "go to", "click", "enter", "submit", "select", "wait until", "choose product", "add to cart", etc.
@@ -139,40 +136,7 @@ Verify that the cart contains 1 item and the product title contains "wireless he
 
 Because selenium_mcp parses the DOM at runtime, you do not need to supply selectors or page objects; however, adding stable hints (e.g., data-test-id) will increase reliability for critical tests.
 
-## Configuration & secure credentials
-Common settings (env vars or config file):
-- LLM_PROVIDER (e.g., ollama, openai)
-- LLM_MODEL (the model name used by the provider)
-- TEST_BROWSER (chrome | firefox)
-- BROWSER_HEADLESS (true|false)
-- SELENIUM_REMOTE_URL (if using Grid or a cloud provider)
-- TIMEOUT_SECONDS (default step timeout)
-- MCP_SERVER_HOST / MCP_SERVER_PORT (only if customizing)
-
 Important: Do not store secrets in plaintext in the repository. Use OS environment variables, your OS secret manager, or your CI secret store to provide any provider credentials. This README intentionally does not recommend putting all API keys into a .env file — use secure secret management for production usage.
-
-## Running tests
-- Start the MCP server:
-  python selenium_mcp.py
-
-- user task is defined in prompts.py. Explain your scenario there before running the agent
-
-- Start the Agent:
-  python agent.py 
-
-
-The Agent will:
-- request a DOM snapshot from the MCP server,
-- call the LLM via LangChain/LangGraph,
-- return a step plan and instruct the server to execute it.
-
-## Test reporting & artifacts
-On failure you get:
-- Screenshots per failing step under reports/screenshots/
-- Page HTML snapshot under reports/html/
-- Execution logs and step plan under reports/logs/
-
-These artifacts can be uploaded to CI for debugging.
 
 ## Security & privacy
 - Avoid sending secrets to public LLMs. Use secret management and redact sensitive data when necessary.
