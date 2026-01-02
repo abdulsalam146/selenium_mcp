@@ -6,3 +6,4 @@ langgraph
 langchain-mcp-adapters
 python-dotenv
 langchain-ollama
+langchain_core
